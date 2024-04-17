@@ -1,0 +1,7 @@
+{
+  "name": "MultiMod",
+  "description": "A collection of QoL mods amongst client mods.",
+  "version_number": "1.0.3",
+  "dependencies": [ "BepInEx-BepInExPack-5.4.2100", "\tRune580-LethalCompany_InputUtils-0.7.4" ],
+  "website_url": "https://github.com/kennyhngo/LethalCompany-NightVision"
+}
