@@ -1,62 +1,31 @@
-# Scrap Multiplier Mod
+# MultiMod
 
 ## Description
-Scrap Multiplier Mod is a custom mod for Lethal Company, designed to enhance your gaming experience by allowing you to adjust the amount of scrap spawned in the game. This mod uses BepInEx and Harmony for patching the game's code.
+MultiMod is a collection of different QoL modifications to enhance gameplay.
 
 ## Features
-- **Customizable Scrap Multiplier**: Allows players to set a multiplier for the amount of scrap spawned in-game.
-- **Easy Configuration**: Modify the multiplier through a simple `.cfg` file.
+- **Scrap Amount and Value Multiplier**: Allows players to set a multiplier for the amount of scrap spawned in-game.
 
 ## Installation
 1. Ensure you have the latest version of BepInEx installed.
-2. Download the `ScrapMultiplierMod.dll` file.
+2. Download the `MultiMod.dll` file.
 3. Place the file in your `BepInEx/plugins` folder.
 4. Run the game once to generate the configuration file.
-5. Adjust the multiplier in the `com.VandalFandal.Mods.cfg` file located in the `BepInEx/config` folder.
+5. Adjust the config in the `com.dsrdakota.mods.cfg` file located in the `BepInEx/config` folder OR use LethalConfig in game.
 
 ## Usage
-After installation, the scrap multiplier can be adjusted by changing the value in the configuration file. The default multiplier is set to 4. To change it, simply edit the `ScrapMultiplier` value under the `[General]` section in the configuration file.
+Adjust config values to liking and note some will require a restart of the server or will apply any new changes on landing.
 
 ## Dependencies
 - BepInEx (version BepInExPack-5.4.2100 or higher)
 
 ## Support
-For support, questions, or contributions, please contact me at kobussalesllc@gmail.com.
+Need help or have questions? Contact me at dsrdakota97@gmail.com.
 
 
 
 ---
 
-Enjoy multipling your scrap in Lethal Company!
+Have Fun!
 
 ```
-  /$$$$$$  /$$ /$$                                                                                                        
- /$$__  $$| $$| $$                                                                                                        
-| $$  \ $$| $$| $$       /$$   /$$  /$$$$$$  /$$   /$$  /$$$$$$         /$$$$$$$  /$$$$$$$  /$$$$$$  /$$$$$$   /$$$$$$    
-| $$$$$$$$| $$| $$      | $$  | $$ /$$__  $$| $$  | $$ /$$__  $$       /$$_____/ /$$_____/ /$$__  $$|____  $$ /$$__  $$   
-| $$__  $$| $$| $$      | $$  | $$| $$  \ $$| $$  | $$| $$  \__/      |  $$$$$$ | $$      | $$  \__/ /$$$$$$$| $$  \ $$   
-| $$  | $$| $$| $$      | $$  | $$| $$  | $$| $$  | $$| $$             \____  $$| $$      | $$      /$$__  $$| $$  | $$   
-| $$  | $$| $$| $$      |  $$$$$$$|  $$$$$$/|  $$$$$$/| $$             /$$$$$$$/|  $$$$$$$| $$     |  $$$$$$$| $$$$$$$/   
-|__/  |__/|__/|__/       \____  $$ \______/  \______/ |__/            |_______/  \_______/|__/      \_______/| $$____/    
-                         /$$  | $$                                                                           | $$         
-                        |  $$$$$$/                                                                           | $$         
-                         \______/                                                                            |__/         
-                                     /$$                 /$$                                       /$$                    
-                                    | $$                | $$                                      | $$                    
-  /$$$$$$   /$$$$$$   /$$$$$$       | $$$$$$$   /$$$$$$ | $$  /$$$$$$  /$$$$$$$   /$$$$$$        /$$$$$$    /$$$$$$       
- |____  $$ /$$__  $$ /$$__  $$      | $$__  $$ /$$__  $$| $$ /$$__  $$| $$__  $$ /$$__  $$      |_  $$_/   /$$__  $$      
-  /$$$$$$$| $$  \__/| $$$$$$$$      | $$  \ $$| $$$$$$$$| $$| $$  \ $$| $$  \ $$| $$  \ $$        | $$    | $$  \ $$      
- /$$__  $$| $$      | $$_____/      | $$  | $$| $$_____/| $$| $$  | $$| $$  | $$| $$  | $$        | $$ /$$| $$  | $$      
-|  $$$$$$$| $$      |  $$$$$$$      | $$$$$$$/|  $$$$$$$| $$|  $$$$$$/| $$  | $$|  $$$$$$$        |  $$$$/|  $$$$$$/      
- \_______/|__/       \_______/      |_______/  \_______/|__/ \______/ |__/  |__/ \____  $$         \___/   \______/       
-                                                                                 /$$  \ $$                                
-                                                                                |  $$$$$$/                                
-                                                                                 \______/                                 
-                                                                                                                          
-                                                                                                                          
-                                                 /$$   /$$  /$$$$$$$                                                      
-                                                | $$  | $$ /$$_____/                                                      
-                                                | $$  | $$|  $$$$$$                                                       
-                                                | $$  | $$ \____  $$                                                      
-                                                |  $$$$$$/ /$$$$$$$//$$ /$$ /$$                                           
-                                                 \______/ |_______/|__/|__/|__/```
