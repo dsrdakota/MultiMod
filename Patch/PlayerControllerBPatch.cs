@@ -35,12 +35,10 @@ namespace MultiMod
 				___sprintMultiplier = MultiModPlugin.WalkSpeedConfig.Value / 10;
 			}
 		}
-		// Credits to  Brew
 		[HarmonyPatch(typeof(PlayerControllerB), "Update")]
 		[HarmonyPostfix]
-		private static void UpdatePatch(PlayerControllerB __instance)
+		private static void UpdateJumpClimbWeightPatch(PlayerControllerB __instance)
 		{
-			__instance.jumpForce = 1f;
 			if (MultiModPlugin.ClimbSpeedEnabledConfig.Value == true) {
 				__instance.climbSpeed = MultiModPlugin.ClimbSpeedMultiplierConfig.Value / 10;
 			} else {

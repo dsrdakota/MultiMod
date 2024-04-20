@@ -5,6 +5,7 @@ MultiMod is a collection of different QoL modifications to enhance gameplay.
 
 ## Features
 - **Scrap Amount and Value Multiplier**: Allows players to set a multiplier for the amount of scrap spawned in-game.
+- **Player and game modifications**
 
 ## Installation
 1. Ensure you have the latest version of BepInEx installed.

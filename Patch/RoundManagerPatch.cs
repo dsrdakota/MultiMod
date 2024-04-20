@@ -18,6 +18,7 @@ namespace MultiMod
 			__instance.scrapValueMultiplier = MultiModPlugin.ScrapAmountMultiplierConfig.Value;
 			__instance.scrapAmountMultiplier = MultiModPlugin.ScrapAmountMultiplierConfig.Value;
 			__instance.ScrapValuesRandom = new System.Random(MultiModPlugin.ScrapValueRandomConfig.Value);
+			__instance.playersManager.shipDoorsEnabled = true;
 
 		}
 

@@ -15,9 +15,9 @@ namespace MultiMod
 		public static ManualLogSource log;
 
 		public static ConfigEntry<int> StartingCreditsConfig;
-		public static ConfigEntry<int> ConsecutiveCreditsToGiveConfig;
+		public static ConfigEntry<int> CreditsToGiveConfig;
+		public static ConfigEntry<bool> ConsecutiveCreditsConfig;
 		public static ConfigEntry<bool> InfiniteCreditsConfig;
-		public static ConfigEntry<bool> ConsecutiveGiveCreditsConfig;
 		public static ConfigEntry<int> BonusCreditsMultiplierConfig;
 		public static ConfigEntry<int> QuotaMultiplierConfig;
 		public static ConfigEntry<bool> InfiniteDeadlineConfig;
@@ -51,8 +51,10 @@ namespace MultiMod
 		{
 			ScrapValueMultiplierConfig = Config.Bind("General", "Scrap Value Multiplier", 1f, "Multiplier for the value of scrap spawned.");
 			ScrapAmountMultiplierConfig = Config.Bind("General", "Scrap Amount Multiplier", 1.05f, "Multiplier for the amount of scrap spawned.");
-			InfiniteCreditsConfig = Config.Bind("General", "Infinite Credits", false, "Start the game with this amount of credits.");
-			StartingCreditsConfig = Config.Bind("General", "Starting Credits", 450, "Start the game with this amount of credits.");
+			StartingCreditsConfig = Config.Bind("General", "Starting Credits", 450, "Infinitely have credits.");
+			InfiniteCreditsConfig = Config.Bind("General", "Infinite Credits", false, "Infinitely have credits.");
+			CreditsToGiveConfig = Config.Bind("General", "Credits To Give", 210, "Start the game with this amount of credits.");
+			ConsecutiveCreditsConfig = Config.Bind("General", "Give Credits Consecutively", false, "Consecutively give credits after every round with the Credits config.");
 			BonusCreditsMultiplierConfig = Config.Bind("General", "Bonus Credits Multiplier", 10, "Bonus multiplier to use when getting an over-quota bonus.");
 
 			ScrapValueRandomConfig = Config.Bind("Random Seeds", "Scrap Random Seed", -1, "Random seed for the scrap spawned. (-1 = disable)");
@@ -69,7 +71,7 @@ namespace MultiMod
 			SprintSpeedConfig = Config.Bind("Player", "Sprint Speed", 20, "Change default sprint speed.");
 
 			ThrowPowerConfig = Config.Bind("Player", "Throw Power", 170, "Change default throwing power.");
-			JumpPowerConfig = Config.Bind("Player", "Jump Power", 50, "Change default jump power.");
+			JumpPowerConfig = Config.Bind("Player", "Jump Power", 135, "Change default jump power.");
 
 			ClimbSpeedEnabledConfig = Config.Bind("Player", "Climb Speed Enabled", false, "Change default climb speed for climbing ladders.");
 			ClimbSpeedMultiplierConfig = Config.Bind("Player", "Climb Speed", 40, "Change default climb speed for ladders.");
@@ -84,6 +86,7 @@ namespace MultiMod
 			harmony.PatchAll(typeof(RoundManagerPatch));
 			harmony.PatchAll(typeof(PlayerControllerBPatch));
 			harmony.PatchAll(typeof(TimeOfDayPatch));
+			harmony.PatchAll(typeof(TerminalPatch));
 
 			log = Logger;
 			// ASCII Art
