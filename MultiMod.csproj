@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <RegisterForComInterop>false</RegisterForComInterop>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -29,6 +30,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="0Harmony">
@@ -67,11 +71,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Patch\PlayerControllerBPatch.cs" />
+    <Compile Include="Patch\TerminalPatch.cs" />
+    <Compile Include="Patch\TimeOfDayPatch.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Patch\RoundManagerPatch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="icon.ico" />
     <Content Include="icon.png" />
   </ItemGroup>
   <ItemGroup>
@@ -79,4 +86,8 @@
     <None Include="README.md" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>$(ProjectDir)makezip\7z.exe a $(ProjectDir)makezip\MultiMod.zip $(ProjectDir)bin\Debug\MultiMod.dll $(ProjectDir)Readme.md $(ProjectDir)manifest.json $(ProjectDir)icon.png
+</PostBuildEvent>
+  </PropertyGroup>
 </Project>
