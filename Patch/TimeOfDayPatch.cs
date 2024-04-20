@@ -39,8 +39,8 @@ namespace MultiMod
 				__instance.timeUntilDeadline = (float)((int)(__instance.totalTime * (float)__instance.quotaVariables.deadlineDaysAmount));
 				StartOfRound.Instance.deadlineMonitorText.text = "DEADLINE:\n INFINITE";
 			} else {
-				__instance.timeUntilDeadline = __instance.totalTime * maxDays + 1;
-				StartOfRound.Instance.deadlineMonitorText.text = "DEADLINE:\n " + __instance.totalTime.ToString();
+				//__instance.timeUntilDeadline = __instance.totalTime * maxDays + 1;
+				StartOfRound.Instance.deadlineMonitorText.text = "DEADLINE:\n " + __instance.daysUntilDeadline.ToString() + "/" + __instance.quotaVariables.deadlineDaysAmount.ToString();
 			}
 		}
 
@@ -65,8 +65,8 @@ namespace MultiMod
 				__instance.timeUntilDeadline = (float)((int)(__instance.totalTime * (float)__instance.quotaVariables.deadlineDaysAmount));
 				StartOfRound.Instance.deadlineMonitorText.text = "DEADLINE:\n INFINITE";
 			} else {
-				__instance.timeUntilDeadline = __instance.totalTime * maxDays + 1;
-				StartOfRound.Instance.deadlineMonitorText.text = "DEADLINE:\n " + __instance.totalTime.ToString();
+				//__instance.timeUntilDeadline = __instance.totalTime * maxDays + 1;
+				StartOfRound.Instance.deadlineMonitorText.text = "DEADLINE:\n " + __instance.daysUntilDeadline.ToString() + "/" + __instance.quotaVariables.deadlineDaysAmount.ToString();
 			}
 
 			/* Maybe change the difficulty?
@@ -103,7 +103,7 @@ namespace MultiMod
 				StartOfRound.Instance.deadlineMonitorText.text = "DEADLINE:\n INFINITE";
 			} else {
 				__instance.timeUntilDeadline = __instance.totalTime * __instance.quotaVariables.deadlineDaysAmount + 1;
-				StartOfRound.Instance.deadlineMonitorText.text = "DEADLINE:\n " + __instance.totalTime.ToString();
+				StartOfRound.Instance.deadlineMonitorText.text = "DEADLINE:\n " + __instance.daysUntilDeadline.ToString() + "/" + __instance.quotaVariables.deadlineDaysAmount.ToString();
 			}
 			// Here we add in our overtimeBonus multiplier if different
 			int overtimeBonus = (int)Math.Ceiling((decimal)(num / 5 + 15 * __instance.daysUntilDeadline)*MultiModPlugin.BonusCreditsMultiplierConfig.Value);
@@ -123,8 +123,8 @@ namespace MultiMod
 				__instance.timeUntilDeadline = (float)((int)(__instance.totalTime * (float)__instance.quotaVariables.deadlineDaysAmount));
 				StartOfRound.Instance.deadlineMonitorText.text = "DEADLINE:\n INFINITE";
 			} else {
-				__instance.timeUntilDeadline = __instance.totalTime * MultiModPlugin.DeadlineConfig.Value + 1;
-				StartOfRound.Instance.deadlineMonitorText.text = "DEADLINE:\n " + __instance.totalTime.ToString();
+				//__instance.timeUntilDeadline = __instance.totalTime * MultiModPlugin.DeadlineConfig.Value + 1;
+				StartOfRound.Instance.deadlineMonitorText.text = "DEADLINE:\n " + __instance.daysUntilDeadline.ToString() + "/" + __instance.quotaVariables.deadlineDaysAmount.ToString();
 			}
 
 		}

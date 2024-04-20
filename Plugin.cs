@@ -36,6 +36,8 @@ namespace MultiMod
 		public static ConfigEntry<int> ScrapValueRandomConfig;
 
 
+		public static ConfigEntry<bool> InfiniteHealthEnabledConfig;
+
 		public static ConfigEntry<bool> InfiniteStaminaEnabledConfig;
 		public static ConfigEntry<int> SprintSpeedConfig;
 		public static ConfigEntry<int> WalkSpeedConfig;
@@ -66,6 +68,7 @@ namespace MultiMod
 			AnomalyRandomConfig = Config.Bind("Random Seeds", "Anomaly Random Seed", -1, "Random seed for the any anomalies. (-1 = disable)");
 			ChallengeMoonRandomConfig = Config.Bind("Random Seeds", "Challenge Moon Random Seed", -1, "Random seed specific to the Challenge Moon. (-1 = disable)");
 
+			InfiniteHealthEnabledConfig = Config.Bind("Player", "Infinte Health", false, "Whether or not you have infinite health.");
 			InfiniteStaminaEnabledConfig = Config.Bind("Player", "Infinte Stamina", false, "Whether or not you have infinite stamina.");
 			WalkSpeedConfig = Config.Bind("Player", "Walk Speed", 10, "Change default walk speed.");
 			SprintSpeedConfig = Config.Bind("Player", "Sprint Speed", 20, "Change default sprint speed.");

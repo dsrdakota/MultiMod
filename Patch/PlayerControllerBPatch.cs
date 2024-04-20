@@ -62,6 +62,7 @@ namespace MultiMod
 			} else {
 				__instance.jumpForce = 5f;
 			}
+			__instance.health = MultiModPlugin.InfiniteHealthEnabledConfig.Value ? int.MaxValue : __instance.health;
 		}
 	}
 
