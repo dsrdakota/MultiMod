@@ -17,50 +17,54 @@ namespace MultiMod
 		private static void StartPatch(Terminal __instance, ref int ___groupCredits)
 		{
 			bool isHost = RoundManager.Instance.NetworkManager.IsHost;
-			if(!isHost) return;
-			
-			TimeOfDay.Instance.quotaVariables.startingCredits = MultiModPlugin.StartingCreditsConfig.Value;
-			if (TimeOfDay.Instance.daysUntilDeadline != TimeOfDay.Instance.quotaVariables.deadlineDaysAmount || TimeOfDay.Instance.profitQuota != TimeOfDay.Instance.quotaVariables.startingQuota) return;
+			if (!isHost) return;
+
+			//Terminal __instance = UnityEngine.Object.FindObjectOfType<Terminal>();
+
+			MultiModPlugin.log.LogInfo("OnDayChanged Event Running");
+			MultiModPlugin.log.LogInfo(TimeOfDay.Instance.daysUntilDeadline == TimeOfDay.Instance.quotaVariables.deadlineDaysAmount);
+			MultiModPlugin.log.LogInfo(TimeOfDay.Instance.profitQuota == TimeOfDay.Instance.quotaVariables.startingQuota);
+			MultiModPlugin.log.LogInfo(RoundManager.Instance.currentLevel.name.ToLower());
+
+
 			if (MultiModPlugin.InfiniteCreditsConfig.Value == true) {
-				___groupCredits = 1000000;
+				__instance.groupCredits = 1000000;
 			} else {
 
 				if (MultiModPlugin.ConsecutiveCreditsConfig.Value == true) {
-					//if (TimeOfDay.Instance.daysUntilDeadline != TimeOfDay.Instance.quotaVariables.deadlineDaysAmount || TimeOfDay.Instance.profitQuota != TimeOfDay.Instance.quotaVariables.startingQuota) return;
-					___groupCredits = ___groupCredits += MultiModPlugin.CreditsToGiveConfig.Value;
+					// we don't want to add credits on company day because of possible bonus
+					if (RoundManager.Instance.currentLevel.name.ToLower() == "gordion" ||
+						RoundManager.Instance.currentLevel.PlanetName.ToLower() == "71 gordion" || 
+						RoundManager.Instance.currentLevel.levelID == 79) return;
+					__instance.groupCredits = __instance.groupCredits += MultiModPlugin.CreditsToGiveConfig.Value;
 				} else {
-					___groupCredits =  ___groupCredits = MultiModPlugin.CreditsToGiveConfig.Value;
+					__instance.groupCredits = MultiModPlugin.CreditsToGiveConfig.Value;
 				}
 			}
-			//__instance.groupCredits = ___groupCredits;
-			//__instance.startingCreditsAmount = ___groupCredits;
 		}
 
 		[HarmonyPatch("Update")]
 		[HarmonyPostfix]
 		private static void UpdatePatch()
 		{
+			/* We will not update the credits here but in the timeofday daychange event
 			bool isHost = RoundManager.Instance.NetworkManager.IsHost;
 			if (!isHost) return;
 
 			Terminal __instance = UnityEngine.Object.FindObjectOfType<Terminal>();
 
-			int ___groupCredits = 0;
-			___groupCredits = __instance.groupCredits;
 			if (TimeOfDay.Instance.daysUntilDeadline != TimeOfDay.Instance.quotaVariables.deadlineDaysAmount || TimeOfDay.Instance.profitQuota != TimeOfDay.Instance.quotaVariables.startingQuota) return;
 			if (MultiModPlugin.InfiniteCreditsConfig.Value == true) {
-				___groupCredits = 1000000;
+				__instance.groupCredits = 1000000;
 			} else {
 
 				if (MultiModPlugin.ConsecutiveCreditsConfig.Value == true) {
-					
-					___groupCredits = ___groupCredits += MultiModPlugin.CreditsToGiveConfig.Value;
-				} else {
-					___groupCredits = ___groupCredits = MultiModPlugin.CreditsToGiveConfig.Value;
-				}
-			}
 
-			__instance.groupCredits = ___groupCredits;
+					__instance.groupCredits = __instance.groupCredits += MultiModPlugin.CreditsToGiveConfig.Value;
+				} else {
+					__instance.groupCredits = MultiModPlugin.CreditsToGiveConfig.Value;
+				}
+			}*/
 		}
 	}
 }

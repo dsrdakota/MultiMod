@@ -149,5 +149,41 @@ namespace MultiMod
 
 		}
 
+		[HarmonyPatch(typeof(TimeOfDay), "SetBuyingRateForDay")]
+		[HarmonyPostfix]
+		public static void SetBuyingRateForDayPatch()
+		{
+			StartOfRound.Instance.companyBuyingRate = MultiModPlugin.BuyingRateConfig.Value / 10;
+		}
+
+		[HarmonyPatch(typeof(TimeOfDay), "OnDayChanged")]
+		[HarmonyPostfix]
+		public static void OnDayChangedPatch()
+		{
+			bool isHost = RoundManager.Instance.NetworkManager.IsHost;
+			if (!isHost) return;
+
+			Terminal __instance = UnityEngine.Object.FindObjectOfType<Terminal>();
+
+			MultiModPlugin.log.LogInfo("OnDayChanged Event Running");
+			MultiModPlugin.log.LogInfo(TimeOfDay.Instance.daysUntilDeadline == TimeOfDay.Instance.quotaVariables.deadlineDaysAmount);
+			MultiModPlugin.log.LogInfo(TimeOfDay.Instance.profitQuota == TimeOfDay.Instance.quotaVariables.startingQuota);
+			MultiModPlugin.log.LogInfo(RoundManager.Instance.currentLevel.name.ToLower());
+
+			
+			if (MultiModPlugin.InfiniteCreditsConfig.Value == true) {
+				__instance.groupCredits = 1000000;
+			} else {
+
+				if (MultiModPlugin.ConsecutiveCreditsConfig.Value == true) {
+					// we don't want to add credits on company day because of possible bonus
+					if (RoundManager.Instance.currentLevel.name.ToLower() == "gordion" ||
+						RoundManager.Instance.currentLevel.PlanetName.ToLower() == "71 gordion" ||
+						RoundManager.Instance.currentLevel.levelID == 79) return; __instance.groupCredits = __instance.groupCredits += MultiModPlugin.CreditsToGiveConfig.Value;
+				} else {
+					__instance.groupCredits = MultiModPlugin.CreditsToGiveConfig.Value;
+				}
+			}
+		}
 	}
 }
