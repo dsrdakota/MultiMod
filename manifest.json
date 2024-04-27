@@ -1,8 +1,8 @@
 {
-  "name": "MultiMod",
   "author": "dsrdakota",
-  "description": "MultiMod is a collection of different QoL modifications to enhance gameplay.",
-  "version_number": "1.0.7",
   "dependencies": [ "BepInEx-BepInExPack-5.4.2100", "Rune580-LethalCompany_InputUtils-0.7.4" ],
+  "description": "MultiMod is a collection of different QoL modifications to enhance gameplay.",
+  "name": "MultiMod",
+  "version_number": "1.0.7",
   "website_url": "https://github.com/dsrdakota/MultiMod"
 }

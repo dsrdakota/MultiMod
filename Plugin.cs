@@ -74,7 +74,7 @@ namespace MultiMod
 			SprintSpeedConfig = Config.Bind("Player", "Sprint Speed", 20, "Change default sprint speed.");
 
 			ThrowPowerConfig = Config.Bind("Player", "Throw Power", 170, "Change default throwing power.");
-			JumpPowerConfig = Config.Bind("Player", "Jump Power", 135, "Change default jump power.");
+			JumpPowerConfig = Config.Bind("Player", "Jump Power", 150, "Change default jump power.");
 
 			ClimbSpeedEnabledConfig = Config.Bind("Player", "Climb Speed Enabled", false, "Change default climb speed for climbing ladders.");
 			ClimbSpeedMultiplierConfig = Config.Bind("Player", "Climb Speed", 40, "Change default climb speed for ladders.");

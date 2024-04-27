@@ -13,14 +13,7 @@ namespace MultiMod
 	{
 		[HarmonyPatch(typeof(TimeOfDay), "Awake")]
 		[HarmonyPostfix]
-		private static void AwakePatch()
-		{
-
-		}
-
-		[HarmonyPatch(typeof(TimeOfDay), "Start")]
-		[HarmonyPostfix]
-		private static void StartPatch(TimeOfDay __instance)
+		private static void AwakePatch(ref TimeOfDay __instance)
 		{
 			string currentSaveFile = GameNetworkManager.Instance.currentSaveFileName;
 			bool isHost = RoundManager.Instance.NetworkManager.IsHost;
@@ -31,7 +24,7 @@ namespace MultiMod
 			if (!isHost) return;
 
 			MultiModPlugin.log.LogDebug("__instance.totalTime: " + __instance.totalTime.ToString());
-			__instance.quotaVariables.deadlineDaysAmount = maxDays + 1;
+			__instance.quotaVariables.deadlineDaysAmount = maxDays;
 			__instance.quotaVariables.startingCredits = MultiModPlugin.StartingCreditsConfig.Value;
 			__instance.quotaVariables.randomizerMultiplier = MultiModPlugin.QuotaMultiplierConfig.Value / 10;
 
@@ -39,14 +32,15 @@ namespace MultiMod
 				__instance.timeUntilDeadline = (float)((int)(__instance.totalTime * (float)__instance.quotaVariables.deadlineDaysAmount));
 				StartOfRound.Instance.deadlineMonitorText.text = "DEADLINE:\n INFINITE";
 			} else {
-				//__instance.timeUntilDeadline = __instance.totalTime * maxDays + 1;
+				__instance.daysUntilDeadline = __instance.quotaVariables.deadlineDaysAmount;
 				StartOfRound.Instance.deadlineMonitorText.text = "DEADLINE:\n " + __instance.daysUntilDeadline.ToString() + "/" + __instance.quotaVariables.deadlineDaysAmount.ToString();
 			}
 		}
-
-		[HarmonyPatch(typeof(TimeOfDay), "Update")]
+		/*
+		 * this does not run?
+		[HarmonyPatch(typeof(TimeOfDay), "Start")]
 		[HarmonyPostfix]
-		private static void UpdatePatch(TimeOfDay __instance)
+		private static void StartPatch(ref TimeOfDay __instance)
 		{
 			string currentSaveFile = GameNetworkManager.Instance.currentSaveFileName;
 			bool isHost = RoundManager.Instance.NetworkManager.IsHost;
@@ -63,9 +57,36 @@ namespace MultiMod
 
 			if (MultiModPlugin.InfiniteDeadlineConfig.Value == true) {
 				__instance.timeUntilDeadline = (float)((int)(__instance.totalTime * (float)__instance.quotaVariables.deadlineDaysAmount));
+				StartOfRound.Instance.deadlineMonitorText.text = "DEADLINE 1:\n INFINITE";
+			} else {
+				__instance.daysUntilDeadline = __instance.quotaVariables.deadlineDaysAmount;
+				StartOfRound.Instance.deadlineMonitorText.text = "DEADLINE 1:\n " + __instance.daysUntilDeadline.ToString() + "/" + __instance.quotaVariables.deadlineDaysAmount.ToString();
+			}
+		}
+		*/
+
+		// new game changes this
+		[HarmonyPatch(typeof(TimeOfDay), "Update")]
+		[HarmonyPostfix]
+		private static void UpdatePatch(ref TimeOfDay __instance)
+		{
+			string currentSaveFile = GameNetworkManager.Instance.currentSaveFileName;
+			bool isHost = RoundManager.Instance.NetworkManager.IsHost;
+			float runCount = TimeOfDay.Instance.timesFulfilledQuota;
+
+			int maxDays = MultiModPlugin.DeadlineConfig.Value;
+
+			if (!isHost) return;
+
+			MultiModPlugin.log.LogDebug("__instance.totalTime: " + __instance.totalTime.ToString());
+			__instance.quotaVariables.deadlineDaysAmount = maxDays;
+			__instance.quotaVariables.startingCredits = MultiModPlugin.StartingCreditsConfig.Value;
+			__instance.quotaVariables.randomizerMultiplier = MultiModPlugin.QuotaMultiplierConfig.Value / 10;
+
+			if (MultiModPlugin.InfiniteDeadlineConfig.Value == true) {
+				__instance.timeUntilDeadline = (float)((int)(__instance.totalTime * (float)__instance.quotaVariables.deadlineDaysAmount));
 				StartOfRound.Instance.deadlineMonitorText.text = "DEADLINE:\n INFINITE";
 			} else {
-				//__instance.timeUntilDeadline = __instance.totalTime * maxDays + 1;
 				StartOfRound.Instance.deadlineMonitorText.text = "DEADLINE:\n " + __instance.daysUntilDeadline.ToString() + "/" + __instance.quotaVariables.deadlineDaysAmount.ToString();
 			}
 
@@ -77,7 +98,7 @@ namespace MultiMod
 
 		[HarmonyPatch(typeof(TimeOfDay), nameof(TimeOfDay.SetNewProfitQuota))]
 		[HarmonyReversePatch]
-		private static void SetNewProfitQuotaPatch(TimeOfDay __instance)
+		private static void SetNewProfitQuotaPatch(ref TimeOfDay __instance)
 		{
 			string currentSaveFile = GameNetworkManager.Instance.currentSaveFileName;
 			bool isHost = RoundManager.Instance.NetworkManager.IsHost;
@@ -86,7 +107,7 @@ namespace MultiMod
 			if (!isHost) return;
 
 
-			__instance.quotaVariables.deadlineDaysAmount = MultiModPlugin.DeadlineConfig.Value + 1;
+			__instance.quotaVariables.deadlineDaysAmount = MultiModPlugin.DeadlineConfig.Value;
 			// We don't need this here: __instance.quotaVariables.startingCredits = MultiModPlugin.StartingCreditsConfig.Value;
 			__instance.quotaVariables.randomizerMultiplier = MultiModPlugin.QuotaMultiplierConfig.Value / 10;
 
@@ -113,9 +134,9 @@ namespace MultiMod
 
 		[HarmonyPatch(typeof(TimeOfDay), "UpdateProfitQuotaCurrentTime")]
 		[HarmonyPostfix]
-		private static void UpdateProfitQuotaCurrentTimePatch(TimeOfDay __instance)
+		private static void UpdateProfitQuotaCurrentTimePatch(ref TimeOfDay __instance)
 		{
-			__instance.quotaVariables.deadlineDaysAmount = MultiModPlugin.DeadlineConfig.Value + 1;
+			__instance.quotaVariables.deadlineDaysAmount = MultiModPlugin.DeadlineConfig.Value;
 			// We don't need this here: __instance.quotaVariables.startingCredits = MultiModPlugin.StartingCreditsConfig.Value;
 			__instance.quotaVariables.randomizerMultiplier = MultiModPlugin.QuotaMultiplierConfig.Value / 10;
 
@@ -123,10 +144,10 @@ namespace MultiMod
 				__instance.timeUntilDeadline = (float)((int)(__instance.totalTime * (float)__instance.quotaVariables.deadlineDaysAmount));
 				StartOfRound.Instance.deadlineMonitorText.text = "DEADLINE:\n INFINITE";
 			} else {
-				//__instance.timeUntilDeadline = __instance.totalTime * MultiModPlugin.DeadlineConfig.Value + 1;
 				StartOfRound.Instance.deadlineMonitorText.text = "DEADLINE:\n " + __instance.daysUntilDeadline.ToString() + "/" + __instance.quotaVariables.deadlineDaysAmount.ToString();
 			}
 
 		}
+
 	}
 }

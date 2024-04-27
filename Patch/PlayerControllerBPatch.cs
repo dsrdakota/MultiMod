@@ -16,8 +16,11 @@ namespace MultiMod
 		private static void OnStart(PlayerControllerB __instance)
 		{
 
-			if (!__instance.IsServer) {
-				HUDManager.Instance.DisplayTip("YO!", "I AM SERVER");
+			if (__instance.IsServer) {
+				HUDManager.Instance.DisplayTip("MultiMod", "We are the server");
+			}
+			if(__instance.IsHost) {
+				HUDManager.Instance.DisplayTip("MultiMod", "We are the host");
 			}
 		}
 
@@ -35,6 +38,7 @@ namespace MultiMod
 				___sprintMultiplier = MultiModPlugin.WalkSpeedConfig.Value / 10;
 			}
 		}
+
 		[HarmonyPatch(typeof(PlayerControllerB), "Update")]
 		[HarmonyPostfix]
 		private static void UpdateJumpClimbWeightPatch(PlayerControllerB __instance)
@@ -62,7 +66,38 @@ namespace MultiMod
 			} else {
 				__instance.jumpForce = 5f;
 			}
-			__instance.health = MultiModPlugin.InfiniteHealthEnabledConfig.Value ? int.MaxValue : __instance.health;
+			
+			__instance.sinkingSpeedMultiplier = 0f;
+
+			if (MultiModPlugin.InfiniteHealthEnabledConfig.Value == true) {
+				// These are ugly hacks that may or may not work
+				if(__instance.isSinking == true) {
+					__instance.TeleportPlayer(__instance.oldPlayerPosition);
+					__instance.isSinking = false;
+					__instance.UpdateSpecialAnimationValue(true);
+				}
+				if(__instance.isUnderwater == true) {
+					__instance.TeleportPlayer(__instance.oldPlayerPosition);
+					__instance.isUnderwater = false;
+					__instance.UpdateSpecialAnimationValue(true);
+				}
+				__instance.health = int.MaxValue;
+
+			} else {
+				__instance.health = __instance.health;
+			}
+		}
+
+		[HarmonyPatch(typeof(PlayerControllerB), "Update")]
+		[HarmonyPostfix]
+		private static void UpdateHealthPatch(ref float ___health)
+		{
+			if (MultiModPlugin.InfiniteHealthEnabledConfig.Value == true) {
+				___health = int.MaxValue;
+
+			} else {
+				___health = ___health;
+			}
 		}
 	}
 
