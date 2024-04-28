@@ -15,7 +15,7 @@ namespace MultiMod
 		{
 
 			//__instance.playersManager.ReviveDeadPlayers();
-			__instance.scrapValueMultiplier = MultiModPlugin.ScrapAmountMultiplierConfig.Value;
+			__instance.scrapValueMultiplier = MultiModPlugin.ScrapValueMultiplierConfig.Value;
 			__instance.scrapAmountMultiplier = MultiModPlugin.ScrapAmountMultiplierConfig.Value;
 			MultiModPlugin.UpdateAllRandomSeeds();
 			__instance.playersManager.shipDoorsEnabled = true;
@@ -27,7 +27,7 @@ namespace MultiMod
 		[HarmonyPostfix]
 		public static void GenerateNewLevelClientRpc(ref RoundManager __instance)
 		{
-			__instance.scrapValueMultiplier = MultiModPlugin.ScrapAmountMultiplierConfig.Value;
+			__instance.scrapValueMultiplier = MultiModPlugin.ScrapValueMultiplierConfig.Value;
 			__instance.scrapAmountMultiplier = MultiModPlugin.ScrapAmountMultiplierConfig.Value;
 			MultiModPlugin.UpdateAllRandomSeeds();
 
