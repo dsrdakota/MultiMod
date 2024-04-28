@@ -18,7 +18,7 @@ namespace MultiMod
 		UseModdedSeeds = 1,
 		UsedFixedSeeds = 2
 	}
-	[BepInPlugin("com.dsrdakota.mods", "Multi Mod", "1.1.0")]
+	[BepInPlugin("com.dsrdakota.mods", "Multi Mod", "1.1.1")]
 	//[BepInDependency("com.rune580.LethalCompanyInputUtils", BepInDependency.DependencyFlags.HardDependency)]
 	[BepInDependency("ainavt.lc.lethalconfig", BepInDependency.DependencyFlags.SoftDependency)]
 	public class MultiModPlugin : BaseUnityPlugin
